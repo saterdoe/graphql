@@ -1,0 +1,86 @@
+type Query {
+    "Lista de los estudiantes de la academia"
+    estudiantes: [Estudiante!]!
+    "Información del estudiante de la academia seleccionado por ID"
+    estudiante(id: ID!): Estudiante!
+    "Lista de los cursos de la academia"
+    cursos: [Curso!]!
+    "Información del curso de la academia seleccioando por ID"
+    curso(id: ID!): Curso! 
+}
+
+type Mutation {
+    "Crear un nuevo curso"
+    cursoNuevo(curso: CursoInput!): Curso!
+    modificarCurso(curso: CursoInput!): Curso!
+    eliminarCurso(id: ID!): Curso
+}
+
+input CursoInput {
+    id: ID
+    title: String!
+    description: String!
+    clases: Int!
+    time: Float!
+    logo: String!
+    level: Nivel=ALL
+    path: String!
+    teacher: String!
+}
+
+"Información del estudiante"
+type Estudiante {
+    "Identificador del estudiante"
+    id: ID!
+    "Nombre del estudiante"
+    name: String!
+    "Email del estudiante"
+    email: String!
+    "Web del estudiante"
+    website: String
+    "Lista de cursos del estudiante"
+    courses: [Curso!]!
+}
+
+"Información del curso"
+type Curso {
+    "Identificador del curso"
+    id: ID!
+    "Titulo del curso"
+    title: String!
+    "Descripción del curso"
+    description: String!
+    "Clases del curso"
+    clases: Int!
+    "Duración del curso"
+    time: Float!
+    "Logo del curso"
+    logo: String!
+    "Nivel del curso"
+    level: Nivel!
+    "URL del curso"
+    path: String!
+    "Profesor que dicta el curso"
+    teacher: String!
+    "Lista de estudiantes del curso"
+    students: [Estudiante]
+    "Valoraciones del curso"
+    reviews: [Valoracion!]!
+}
+
+enum Nivel {
+    ALL
+    MEDIUM
+}
+
+"Valoraciones de cursos"
+type Valoracion {
+    "Identificador de la valoración"
+    id: ID!
+    "Nombre de la valoración"
+    name: String!
+    "Puntos de la valoración"
+    points: Float!
+    "Comentarios de la valoración"
+    comments: String
+}
